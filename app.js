@@ -3,10 +3,26 @@ const app = express();
 const cors = require("cors");
 const routes = require("./routes/allRoutes");
 
+// for live server
+const root = require("path").join(__dirname, "build");
+
+
+app.use(express.static(__dirname+"/assets"));
+
+// for live server
+app.use(express.static(root));
+
+
 app.use(express.json());
 app.use(express.urlencoded( { extended : true}));
 app.use(cors()); // CORS enable
 app.use(routes)
+
+app.get("*", (req, res)=>{
+    res.sendFile("index.html", {root});
+})
+
+
 
 
 
