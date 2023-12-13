@@ -9,8 +9,16 @@ routes.post("/signup", async(req, res)=>{
 
     await User.create(req.body);
     res.send({ success : true });
+})
 
-    
+routes.get("/", async(req, res)=>{
+    if(req.headers.authorization){
+
+        let result = await User.find();
+        res.send({ success : true, result : result });
+    }else{
+        res.send({success : false })
+    }
 })
 
 module.exports = routes;

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const upload = require("express-fileupload");
 const routes = require("./routes/allRoutes");
 
 // for live server
@@ -16,6 +17,8 @@ app.use(express.static(root));
 app.use(express.json());
 app.use(express.urlencoded( { extended : true}));
 app.use(cors()); // CORS enable
+app.use(upload());
+
 app.use(routes)
 
 app.get("*", (req, res)=>{
